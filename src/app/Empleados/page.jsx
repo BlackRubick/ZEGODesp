@@ -2,7 +2,15 @@
 import React, { useState } from "react";
 import "../../../css/globals.css";
 import CardEmployee from "../Moleculas/CardEmployee";
-import { Button, Grid, Box, Autocomplete, TextField, styled, Stack } from "@mui/material";
+import {
+  Button,
+  Grid,
+  Box,
+  Autocomplete,
+  TextField,
+  styled,
+  Stack,
+} from "@mui/material";
 
 export default function Clientes() {
   const region = ["Todas", "Tuxtla", "Comitan", "Comalapa"]; //aqui se van a consumir las regiones que dejemos por default
@@ -16,21 +24,23 @@ export default function Clientes() {
   //ejemplo de arreglo para consumir clientes
   const clientes = [
     {
+      id: 1,
       name: "Jorge Luis",
       role: "Supervisor",
       mail: "jluis@gmail.com",
     },
     {
+      id: 2,
       name: "Javier Alejandro",
       role: "Secretaria/o",
       mail: "javier.alejandro.21@gmail.com ",
     },
     {
+      id: 3,
       name: "David De La Cruz",
       role: "Administrador",
       mail: "daviddelacruzmorales42@gmail.com  ",
     },
-    
   ];
 
   //Use effect para renderizado condicional
@@ -61,14 +71,14 @@ export default function Clientes() {
             <Grid item xs={12} lg={12} display="flex" justifyContent={"center"}>
               <h1>Empleados</h1>
             </Grid>
-          
+
             <Grid item xs={12}>
               <Grid container direction={"row"} spacing={2}>
-                {clientes.map((cliente, index) => {
+                {clientes.map((cliente) => {
                   console.log(cliente);
                   return (
-                    <Grid item xs={12} lg={4}>
-                      <div key={index}>
+                    <Grid item xs={12} lg={4} key={cliente.id}>
+                      <div>
                         <CardEmployee c={cliente} />
                       </div>
                     </Grid>

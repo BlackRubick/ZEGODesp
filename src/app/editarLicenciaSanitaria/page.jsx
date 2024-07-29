@@ -181,7 +181,7 @@ export default function EditarLicenciaSanitaria() {
                       margin: "0px",
                     }}
                   >
-                    "Coca cola"
+                    Coca cola
                   </h1>
                 </Grid>
                 <Grid item xs={12} display={"flex"} justifyContent={"center"}>
@@ -190,7 +190,7 @@ export default function EditarLicenciaSanitaria() {
                       margin: "0px",
                     }}
                   >
-                    "Poniente"
+                    Poniente
                   </h2>
                 </Grid>
 

@@ -5,7 +5,7 @@ import { PDFDocument, StandardFonts, values } from "pdf-lib";
 import LightTrapData from "../Organismos/LightTrapData";
 
 import "../../../css/globals.css";
-export default function agregarRepTrampasDeLuz() {
+export default function AgregarRepTrampasDeLuz() {
   const [generatedPdf, setGeneratedPdf] = useState(null);
 
   //datos de encabezado
@@ -269,7 +269,7 @@ export default function agregarRepTrampasDeLuz() {
                   margin: "0px",
                 }}
               >
-                "Coca cola"
+                Coca cola
               </h1>
             </Grid>
             <Grid item xs={12} display={"flex"} justifyContent={"center"}>
@@ -278,7 +278,7 @@ export default function agregarRepTrampasDeLuz() {
                   margin: "0px",
                 }}
               >
-                "Poniente"
+                Poniente
               </h2>
             </Grid>
 

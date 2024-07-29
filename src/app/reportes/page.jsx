@@ -68,7 +68,7 @@ export default function Reportes() {
                   margin: "0px",
                 }}
               >
-                "Oxxo"
+                Oxxo
               </h1>
             </Grid>
             <Grid item display={"flex"} justifyContent={"center"} xs={12}>
@@ -79,7 +79,7 @@ export default function Reportes() {
                   marginBottom: "15px",
                 }}
               >
-                "Poniente Sur"
+                Poniente Sur
               </h2>
             </Grid>
 

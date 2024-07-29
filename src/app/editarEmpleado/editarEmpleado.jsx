@@ -18,7 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputLabel from "@mui/material/InputLabel";
 import "../../../css/globals.css";
 
-export default function agregarEmpleado() {
+export default function AgregarEmpleado() {
   const ColorButton = styled(Button)(({ theme }) => ({
     color: "black",
     backgroundColor: "#10754a",
@@ -119,7 +119,7 @@ export default function agregarEmpleado() {
             >
               <h1 style={{
                 margin:"0px"
-              }}>EDITAR EMPLEADO " "</h1>
+              }}>EDITAR EMPLEADO </h1>
             </Grid>
             <Grid item xs={12}  >
               <Grid container direction={"row"} spacing={2}>

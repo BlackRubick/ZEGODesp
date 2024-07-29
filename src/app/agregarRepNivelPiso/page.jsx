@@ -5,7 +5,7 @@ import InspectionData from "../Organismos/InspectionData";
 import { PDFDocument, StandardFonts, values } from "pdf-lib";
 
 import "../../../css/globals.css";
-export default function agregarRepNIvelPiso() {
+export default function AgregarRepNIvelPiso() {
   const [generatedPdf, setGeneratedPdf] = useState(null);
   //Datos del cliente
   const [nombreCliente, setNombreCliente] = useState("");
@@ -296,7 +296,7 @@ export default function agregarRepNIvelPiso() {
                   margin: "0px",
                 }}
               >
-                "Coca cola"
+                Coca cola
               </h1>
             </Grid>
             <Grid item xs={12} display={"flex"} justifyContent={"center"}>
@@ -305,7 +305,7 @@ export default function agregarRepNIvelPiso() {
                   margin: "0px",
                 }}
               >
-                "Poniente"
+                Poniente
               </h2>
             </Grid>
 

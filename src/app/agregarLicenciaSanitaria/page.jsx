@@ -384,14 +384,14 @@ export default function AgregarLicenciaSanitaria() {
                         margin: "5px",
                       }}
                     >
-                      "Coca cola"
+                      Coca cola
                     </h1>
                     <h2
                       style={{
                         margin: "0px",
                       }}
                     >
-                      "Poniente"
+                      Poniente
                     </h2>
                   </div>
                   <Box

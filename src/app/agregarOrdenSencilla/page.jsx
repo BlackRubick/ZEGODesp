@@ -22,7 +22,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 
 import "../../../css/globals.css";
 
-export default function agregarOrdenSencilla() {
+export default function AgregarOrdenSencilla() {
   const ColorButton = styled(Button)(({ theme }) => ({
     color: "black",
     backgroundColor: "#10754a",
@@ -657,14 +657,14 @@ export default function agregarOrdenSencilla() {
                         margin: "5px",
                       }}
                     >
-                      "Coca cola"
+                      Coca cola
                     </h1>
                     <h2
                       style={{
                         margin: "0px",
                       }}
                     >
-                      "Poniente"
+                      Poniente
                     </h2>
                   </div>
                   <Box

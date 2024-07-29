@@ -17,7 +17,7 @@ import PlaguesData from "../Organismos/PlaguesData";
 import RadioField from "../Moleculas/RadioField";
 import "../../../css/globals.css";
 
-export default function agregarOrdenDeServicio() {
+export default function AgregarOrdenDeServicio() {
   const [generatedPdf, setGeneratedPdf] = useState(null);
   //datos del cliente
   const [nombreCliente, setNombreCliente] = useState("");
@@ -563,7 +563,7 @@ export default function agregarOrdenDeServicio() {
                   margin: "0px",
                 }}
               >
-                "Coca cola"
+                Coca cola
               </h1>
             </Grid>
             <Grid item xs={12} display={"flex"} justifyContent={"center"}>
@@ -572,7 +572,7 @@ export default function agregarOrdenDeServicio() {
                   margin: "0px",
                 }}
               >
-                "Poniente"
+                Poniente
               </h2>
             </Grid>
 

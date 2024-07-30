@@ -50,31 +50,31 @@ const pages = {
 };
 
 function Nav() {
-  const [userRole, setUserRole] = React.useState(localStorage.getItem('userRole'));
-  const [userName, setUserName] = React.useState(localStorage.getItem('userName')); // Estado para el nombre del usuario
-  const [isAuthenticated, setIsAuthenticated] = React.useState(!!userRole);
+  // const [userRole, setUserRole] = React.useState(localStorage.getItem('userRole'));
+  // const [userName, setUserName] = React.useState(localStorage.getItem('userName')); // Estado para el nombre del usuario
+  // const [isAuthenticated, setIsAuthenticated] = React.useState(!!userRole);
   const router = useRouter();
 
   React.useEffect(() => {
-    const storedRole = localStorage.getItem('userRole');
-    const storedName = localStorage.getItem('userName');
-    if (storedRole) {
-      setUserRole(storedRole);
-      setUserName(storedName); // Establecer el nombre del usuario
-      setIsAuthenticated(true);
-    }
+    // const storedRole = localStorage.getItem('userRole');
+    // const storedName = localStorage.getItem('userName');
+    // if (storedRole) {
+    //   setUserRole(storedRole);
+    //   setUserName(storedName); // Establecer el nombre del usuario
+    //   setIsAuthenticated(true);
+    // }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName'); // Eliminar el nombre del usuario del localStorage
-    setUserRole(null);
+    // localStorage.removeItem('userRole');
+    // localStorage.removeItem('userName'); // Eliminar el nombre del usuario del localStorage
+    // setUserRole(null);
     setUserName(null); // Limpiar el estado del nombre del usuario
-    setIsAuthenticated(false);
+    // setIsAuthenticated(false);
     router.push('/Login');
   };
 
-  const navPages = isAuthenticated ? pages[userRole] || pages.default : pages.default;
+  // const navPages = isAuthenticated ? pages[userRole] || pages.default : pages.default;
 
   return (
     <AppBar position="static" style={{ background: "#10754A" }}>
@@ -114,9 +114,9 @@ function Nav() {
 
             <Grid item xs={12} lg={8}>
               <Grid container spacing={2} className="nav">
-                {navPages.map((page) => (
+                {/* {navPages.map((page) => (
                   <Enlaces key={page.nombrePage} {...page} />
-                ))}
+                ))} */}
               </Grid>
             </Grid>
 
@@ -130,7 +130,7 @@ function Nav() {
                   marginBottom: "15px",
                 }}
               >
-                {isAuthenticated && (
+                {/* {isAuthenticated && (
                   <Typography variant="body1" style={{ marginRight: '10px' }}>
                     {userName}
                   </Typography>
@@ -139,7 +139,7 @@ function Nav() {
                   <Button color="inherit" onClick={handleLogout}>
                     Cerrar Sesión
                   </Button>
-                )}
+                )} */}
                 <Box sx={{ flexGrow: 0 }}>
                   <Tooltip title="Open settings">
                   </Tooltip>

@@ -1,5 +1,5 @@
 import React from "react";
-
+import Image from "next/image";
 export default function Galeria() {
   const imagenes = [
     "/1.jpeg",
@@ -13,7 +13,7 @@ export default function Galeria() {
     "/9.jpeg",
     "/10.jpeg",
     "/11.jpeg",
-    "/12.jpeg"
+    "/12.jpeg",
   ];
 
   return (
@@ -22,7 +22,12 @@ export default function Galeria() {
       <div className="gallery-grid">
         {imagenes.map((imagen, index) => (
           <div className="gallery-item" key={index}>
-            <img src={imagen} alt={`Imagen ${index}`} />
+            <Image
+              width={100}
+              height={100}
+              src={imagen}
+              alt={`Imagen ${index}`}
+            />
           </div>
         ))}
       </div>

@@ -4,6 +4,7 @@ import "../../../css/globals.css";
 import "../Organismos/organismos.css";
 import { useState } from "react";
 import "../../../public/download-solid.svg";
+import Image from "next/image";
 import {
   Button,
   styled,
@@ -151,7 +152,9 @@ export default function ReportesDesc() {
                         display={"flex"}
                         justifyContent={"center"}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
@@ -231,7 +234,9 @@ export default function ReportesDesc() {
                         display={"flex"}
                         justifyContent={"center"}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
@@ -310,7 +315,9 @@ export default function ReportesDesc() {
                         display={"flex"}
                         justifyContent={"center"}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
@@ -389,7 +396,9 @@ export default function ReportesDesc() {
                         display={"flex"}
                         justifyContent={"center"}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
@@ -468,7 +477,9 @@ export default function ReportesDesc() {
                         display={"flex"}
                         justifyContent={"center"}
                       >
-                        <img
+                        <Image
+                          width={100}
+                          height={100}
                           src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"

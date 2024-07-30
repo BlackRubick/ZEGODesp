@@ -18,7 +18,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputLabel from "@mui/material/InputLabel";
 import "../../../css/globals.css";
 
-export default function AgregarEmpleado() {
+export default function EditarEmpleado() {
   const ColorButton = styled(Button)(({ theme }) => ({
     color: "black",
     backgroundColor: "#10754a",

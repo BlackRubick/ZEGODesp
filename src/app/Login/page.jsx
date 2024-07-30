@@ -32,8 +32,8 @@ export default function Login() {
       const nombre = response.data.nombre; // Obtener el nombre del usuario del response
 
       if (mensaje === "Inicio de sesión exitoso") {
-        localStorage.setItem("userRole", rol);
-        localStorage.setItem("userName", nombre); // Guardar el nombre del usuario en localStorage
+        // localStorage.setItem("userRole", rol);
+        // localStorage.setItem("userName", nombre); // Guardar el nombre del usuario en localStorage
 
         router.push("/"); // Redirigir al Home después del inicio de sesión
       } else {

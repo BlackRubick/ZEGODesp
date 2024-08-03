@@ -9,10 +9,14 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+  Input,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 
 export default function AgregarEmpleado() {
@@ -26,12 +30,11 @@ export default function AgregarEmpleado() {
       const contraseña = document.getElementById("contraseña").value;
 
       // Enviar datos al backend
-      await axios.post("http://127.0.0.1:5000/agregar-empleado", {
-        nombre,
+      await axios.post("http://127.0.0.1:8000/usuarios/", {
+        nombre_empleado: nombre,
         correo,
         contraseña,
-        tipoEmpleado: "", // Agrega el tipo de empleado aquí
-        rol: selectedRole, // Agrega el rol seleccionado aquí
+        rol: selectedRole,
       });
 
       // Si la solicitud se completa correctamente, puedes redirigir o mostrar un mensaje de éxito
@@ -42,8 +45,7 @@ export default function AgregarEmpleado() {
   };
 
   const handleClickShowPassword = () => {
-    const input = document.getElementById("contraseña");
-    input.type = input.type === "password" ? "text" : "password";
+    setShowPassword(!showPassword);
   };
 
   const handleRoleChange = (event) => {
@@ -52,118 +54,79 @@ export default function AgregarEmpleado() {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <form
-          className="containerAgregarClientesFondo"
-          style={{
-            justifyContent: "center",
-          }}
-        >
-          <Grid container direction={"row"}>
-            <Grid
-              item
-              xs={12}
-              display={"flex"}
-              justifyContent={"center"}
-              textAlign={"center"}
-              style={{
-                margin: "0px",
-              }}
-            >
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <form className="containerAgregarClientesFondo" style={{ width: "100%" }}>
+          <Grid container direction={"row"} spacing={2}>
+            <Grid item xs={12} textAlign={"center"}>
               <h1>AGREGA UN EMPLEADO</h1>
             </Grid>
-            <Grid item xs={12}>
-              <Grid container direction={"row"} spacing={2}>
-                <Grid item xs={12} lg={1}></Grid>
-                <Grid item xs={12} lg={5}>
-                  <TextField
-                    fullWidth
-                    placeholder="Nombre Del Empleado"
-                    id="nombre"
-                    multiline
-                    required
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: "#F7F7F9",
-                      opacity: "75%",
-                    }}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} lg={5}>
-                  <TextField
-                    fullWidth
-                    placeholder="Correo del Cliente"
-                    id="correo"
-                    multiline
-                    required
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: "#F7F7F9",
-                      opacity: "75%",
-                    }}
-                  ></TextField>
-                </Grid>
-                <Grid item xs={12} lg={1}></Grid>
-                <Grid item xs={12} lg={1}></Grid>
-                <Grid item xs={12} lg={5}>
-                  <OutlinedInput
-                    type="password"
-                    required
-                    fullWidth
-                    id="contraseña"
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => handleClickShowPassword()}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                  <InputLabel style={{ fontSize: 12 }}>Contraseña</InputLabel>
-                </Grid>
-                <Grid item xs={12} lg={1}></Grid>
-                <Grid
-                  item
-                  xs={12}
-                  lg={5}
-                  display={"flex"}
-                  flexDirection={"row"}
-                  justifyContent={"center"}
-                >
-                  <input
-                    type="checkbox"
-                    id="admin-checkbox"
-                    value="admin"
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="admin-checkbox">Administrador</label>
-                  <input
-                    type="checkbox"
-                    id="supervisor-checkbox"
-                    value="supervisor"
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="supervisor-checkbox">Supervisor</label>
-                  <input
-                    type="checkbox"
-                    id="cliente-checkbox"
-                    value="cliente"
-                    onChange={handleRoleChange}
-                  />
-                  <label htmlFor="cliente-checkbox">Cliente</label>
-                </Grid>
-              </Grid>
+
+            <Grid item xs={12} lg={6}>
+              <TextField
+                fullWidth
+                placeholder="Nombre del Empleado"
+                id="nombre"
+                required
+                style={{
+                  borderRadius: "5px",
+                  backgroundColor: "#F7F7F9",
+                  opacity: "75%",
+                }}
+              />
             </Grid>
 
-            <Grid item xs={12} lg={3}></Grid>
+            <Grid item xs={12} lg={6}>
+              <TextField
+                fullWidth
+                placeholder="Correo del Empleado"
+                id="correo"
+                required
+                style={{
+                  borderRadius: "5px",
+                  backgroundColor: "#F7F7F9",
+                  opacity: "75%",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} lg={6}>
+              <FormControl fullWidth variant="outlined" required>
+                <InputLabel htmlFor="contraseña">Contraseña</InputLabel>
+                <OutlinedInput
+                  id="contraseña"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Contraseña"
+                />
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} lg={6}>
+              <FormControl fullWidth required>
+                <InputLabel id="role-label">Rol</InputLabel>
+                <Select
+                  labelId="role-label"
+                  id="role"
+                  value={selectedRole}
+                  onChange={handleRoleChange}
+                  label="Rol"
+                >
+                  <MenuItem value="admin">Administrador</MenuItem>
+                  <MenuItem value="supervisor">Supervisor</MenuItem>
+                  <MenuItem value="cliente">Cliente</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
             <Grid item xs={12} lg={6}>
               <Box>
                 <Stack spacing={2} direction="row">

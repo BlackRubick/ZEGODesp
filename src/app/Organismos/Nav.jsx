@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,71 +10,87 @@ import Tooltip from "@mui/material/Tooltip";
 import AdbIcon from "@mui/icons-material/Adb";
 import Button from '@mui/material/Button';
 import Enlaces from "../Atomos/Enlaces";
-import { useRouter } from 'next/navigation'; // Importa useRouter de Next.js
+
 
 const pages = {
   admin: [
-    { nombrePage: "Inicio", href: "../" },
-    { nombrePage: "Clientes", href: "../clientes" },
-    { nombrePage: "Reportes", href: "../reportes" },
-    { nombrePage: "Descargar", href: "../reportesdescarga" },
-    { nombrePage: "Graficas", href: "../Graficas" },
-    { nombrePage: "Agregar Empleado", href: "../agregarEmpleado" },
-    { nombrePage: "Editar Empleado", href: "../agregarEmpleado" },
-
-
+    { nombrePage: "Inicio", href: "/" },
+    { nombrePage: "Clientes", href: "/clientes" },
+    { nombrePage: "Reportes", href: "/reportes" },
+    { nombrePage: "Descargar", href: "/reportesdescarga" },
+    { nombrePage: "Graficas", href: "/Graficas" },
+    { nombrePage: "Agregar Empleado", href: "/agregarEmpleado" },
+    { nombrePage: "Editar Empleado", href: "/agregarEmpleado" },
   ],
   supervisor: [
-    { nombrePage: "Inicio", href: "../" },
-    { nombrePage: "Galeria", href: "../galeria" },
-    { nombrePage: "Servicios", href: "../servicios" },
-    { nombrePage: "Contactanos", href: "../contactanos" },
-    { nombrePage: "Reportes", href: "../reportes" },
-    { nombrePage: "Descargar", href: "../reportesdescarga" },
+    { nombrePage: "Inicio", href: "/" },
+    { nombrePage: "Galeria", href: "/galeria" },
+    { nombrePage: "Servicios", href: "/servicios" },
+    { nombrePage: "Contactanos", href: "/contactanos" },
+    { nombrePage: "Reportes", href: "/reportes" },
+    { nombrePage: "Descargar", href: "/reportesdescarga" },
   ],
   cliente: [
-    { nombrePage: "Inicio", href: "../" },
-    { nombrePage: "Galeria", href: "../galeria" },
-    { nombrePage: "Servicios", href: "../servicios" },
-    { nombrePage: "Contactanos", href: "../contactanos" },
-    { nombrePage: "Descargar", href: "../reportesdescarga" },
-
+    { nombrePage: "Inicio", href: "/" },
+    { nombrePage: "Galeria", href: "/galeria" },
+    { nombrePage: "Servicios", href: "/servicios" },
+    { nombrePage: "Contactanos", href: "/contactanos" },
+    { nombrePage: "Descargar", href: "/reportesdescarga" },
   ],
   default: [
-    { nombrePage: "Inicio", href: "../" },
-    { nombrePage: "Galeria", href: "../galeria" },
-    { nombrePage: "Servicios", href: "../servicios" },
-    { nombrePage: "Contactanos", href: "../contactanos" },
-    { nombrePage: "Iniciar Sesion", href: "../Login" },
+    { nombrePage: "Inicio", href: "/" },
+    { nombrePage: "Galeria", href: "/galeria" },
+    { nombrePage: "Servicios", href: "/servicios" },
+    { nombrePage: "Contactanos", href: "/contactanos" },
+    { nombrePage: "Iniciar Sesion", href: "/Login" },
   ]
 };
 
 function Nav() {
-  // const [userRole, setUserRole] = React.useState(localStorage.getItem('userRole'));
-  // const [userName, setUserName] = React.useState(localStorage.getItem('userName')); // Estado para el nombre del usuario
-  // const [isAuthenticated, setIsAuthenticated] = React.useState(!!userRole);
-  const router = useRouter();
+  const [navPages, setNavPages] = useState(pages.default);
+  const [userName, setUserName] = useState(null);
 
-  React.useEffect(() => {
-    // const storedRole = localStorage.getItem('userRole');
-    // const storedName = localStorage.getItem('userName');
-    // if (storedRole) {
-    //   setUserRole(storedRole);
-    //   setUserName(storedName); // Establecer el nombre del usuario
-    //   setIsAuthenticated(true);
-    // }
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/auth', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        const data = await response.json();
+
+        if (data.isAuthenticated) {
+          setUserName(data.userName);
+          setNavPages(pages[data.userRole] || pages.default);
+        } else {
+          setNavPages(pages.default);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setNavPages(pages.default);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
-  const handleLogout = () => {
-    // localStorage.removeItem('userRole');
-    // localStorage.removeItem('userName'); // Eliminar el nombre del usuario del localStorage
-    // setUserRole(null);
-    setUserName(null); // Limpiar el estado del nombre del usuario
-    // setIsAuthenticated(false);
-    router.push('/Login');
+  const handleLogout = async () => {
+    try {
+      await fetch('http://127.0.0.1:8000/api/logout', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      localStorage.removeItem('token');
+      setNavPages(pages.default);
+      setUserName(null);
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
-
-  // const navPages = isAuthenticated ? pages[userRole] || pages.default : pages.default;
 
   return (
     <AppBar position="static" style={{ background: "#10754A" }}>
@@ -114,9 +130,9 @@ function Nav() {
 
             <Grid item xs={12} lg={8}>
               <Grid container spacing={2} className="nav">
-                {/* {navPages.map((page) => (
+                {navPages.map((page) => (
                   <Enlaces key={page.nombrePage} {...page} />
-                ))} */}
+                ))}
               </Grid>
             </Grid>
 
@@ -130,20 +146,16 @@ function Nav() {
                   marginBottom: "15px",
                 }}
               >
-                {/* {isAuthenticated && (
-                  <Typography variant="body1" style={{ marginRight: '10px' }}>
-                    {userName}
-                  </Typography>
+                {userName && (
+                  <>
+                    <Typography variant="body1" style={{ marginRight: '10px' }}>
+                      {userName}
+                    </Typography>
+                    <Button color="inherit" onClick={handleLogout}>
+                      Cerrar Sesión
+                    </Button>
+                  </>
                 )}
-                {isAuthenticated && (
-                  <Button color="inherit" onClick={handleLogout}>
-                    Cerrar Sesión
-                  </Button>
-                )} */}
-                <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title="Open settings">
-                  </Tooltip>
-                </Box>
               </div>
             </Grid>
           </Grid>

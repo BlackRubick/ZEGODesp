@@ -4,33 +4,24 @@ import "../../../css/globals.css";
 import Cardclient from "../Moleculas/CardClient";
 import { Button, Grid, Box, Autocomplete, TextField, styled, Stack } from "@mui/material";
 import axios from "axios";
+
 export default function Clientes() {
   const [region, setRegion] = useState([]);
   const [giroDeEmpresa, setGiroDeEmpresa] = useState([]);
   const [nombreDeEmpresa, setNombreDeEmpresa] = useState([]);
   const [clientes, setClientes] = useState([]);
 
-
   useEffect(() => {
     // Cargar regiones
-    axios.get("http://localhost:5000/empresas")
+    axios.get("http://localhost:8000/api/clientes")
       .then(response => {
-        setRegion(response.data);
-      })
-      .catch(error => console.error("Error al cargar regiones:", error));
-    
-    axios.get("http://localhost:5000/empresas")
-      .then(response => {
-        setGiroDeEmpresa(response.data);
-      })
-      .catch(error => console.error("Error al cargar tipos de empresa:", error));
-    
-    // Cargar empresas
-    axios.get("http://localhost:5000/empresas")
-      .then(response => {
+        // Supongamos que tienes una ruta para obtener regiones, así que ajusta según tu API
+        setRegion(response.data.map(cliente => cliente.region));
+        setGiroDeEmpresa(response.data.map(cliente => cliente.giro_empresa));
+        setNombreDeEmpresa(response.data.map(cliente => cliente.nombre_cliente));
         setClientes(response.data);
       })
-      .catch(error => console.error("Error al cargar empresas:", error));
+      .catch(error => console.error("Error al cargar clientes:", error));
   }, []);
 
   const ColorButton = styled(Button)(({ theme }) => ({
@@ -84,11 +75,7 @@ export default function Clientes() {
                       disablePortal
                       id="region"
                       options={region}
-                      getOptionLabel={(option) =>
-                        typeof option === "string" || option instanceof String
-                          ? option
-                          : ""
-                      }
+                      getOptionLabel={(option) => option || ""}
                       sx={{ width: "100%" }}
                       renderInput={(params) => (
                         <TextField {...params} label="Region" />
@@ -108,11 +95,7 @@ export default function Clientes() {
                       disablePortal
                       id="giroDeEmpresa"
                       options={giroDeEmpresa}
-                      getOptionLabel={(option) =>
-                        typeof option === "string" || option instanceof String
-                          ? option
-                          : ""
-                      }
+                      getOptionLabel={(option) => option || ""}
                       sx={{ width: "100%" }}
                       renderInput={(params) => (
                         <TextField {...params} label="Giro De Empresa" />
@@ -132,11 +115,7 @@ export default function Clientes() {
                       disablePortal
                       id="nombreDeEmpresa"
                       options={nombreDeEmpresa}
-                      getOptionLabel={(option) =>
-                        typeof option === "string" || option instanceof String
-                          ? option
-                          : ""
-                      }
+                      getOptionLabel={(option) => option || ""}
                       sx={{ width: "100%" }}
                       renderInput={(params) => (
                         <TextField {...params} label="Buscador" />
@@ -148,11 +127,10 @@ export default function Clientes() {
             </Grid>
             <Grid item xs={12}>
               <Grid container direction={"row"} spacing={2}>
-                {clientes.map((cliente, index) => (
-                  <Grid item xs={12} lg={4} key={index}>
+                {clientes.map((cliente) => (
+                  <Grid item xs={12} lg={4} key={cliente.id}>
                     <div>
-                      
-                    <Cardclient cliente={cliente} />
+                      <Cardclient cliente={cliente} />
                     </div>
                   </Grid>
                 ))}

@@ -60,10 +60,11 @@ function Nav() {
           }
         });
         const data = await response.json();
-
-        if (data.isAuthenticated) {
-          setUserName(data.userName);
-          setNavPages(pages[data.userRole] || pages.default);
+        console.log(data); // Verifica la estructura de datos aquí
+    
+        if (data && data.rol) {
+          setUserName(data.nombre_empleado);
+          setNavPages(pages[data.rol] || pages.default);
         } else {
           setNavPages(pages.default);
         }
@@ -72,6 +73,7 @@ function Nav() {
         setNavPages(pages.default);
       }
     };
+    
 
     fetchUserData();
   }, []);

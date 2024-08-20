@@ -1,8 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../../css/globals.css";
 import "../Organismos/organismos.css";
-import { useState } from "react";
 import "../../../public/download-solid.svg";
 import Image from "next/image";
 import {
@@ -14,15 +13,12 @@ import {
   Autocomplete,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 
 export default function Reportes() {
-  const ColorButton = styled(Button)(({ theme }) => ({
-    color: "white",
-    backgroundColor: "#10754a",
-    "&:hover": {
-      backgroundColor: "#D6D6D6",
-    },
-  }));
+  const [empresa, setEmpresa] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [fechaValue, setFechaValue] = useState([]);
   const fecha = [
     "21/09/2023",
     "30/10/2024",
@@ -33,8 +29,29 @@ export default function Reportes() {
     "21/09/2023",
     "30/10/2024",
     "31/04/2024",
-  ]; //aqui se van a consumir las fechas
-  const [fechaValue, setFechaValue] = useState([]);
+  ]; // aquí se van a consumir las fechas
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:8000/api/empresaSeleccionada");
+        const data = response.data;
+        setEmpresa(data.nombre_cliente);  
+        setDireccion(data.direccion); 
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const ColorButton = styled(Button)(({ theme }) => ({
+    color: "white",
+    backgroundColor: "#10754a",
+    "&:hover": {
+      backgroundColor: "#D6D6D6",
+    },
+  }));
 
   return (
     <>
@@ -69,7 +86,7 @@ export default function Reportes() {
                   margin: "0px",
                 }}
               >
-                Oxxo
+                {empresa || "Nombre Empresa"}  
               </h1>
             </Grid>
             <Grid item display={"flex"} justifyContent={"center"} xs={12}>
@@ -80,7 +97,7 @@ export default function Reportes() {
                   marginBottom: "15px",
                 }}
               >
-                Poniente Sur
+                {direccion || "Dirección Empresa"}  
               </h2>
             </Grid>
 
@@ -142,7 +159,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/117/117885.png"
                           alt="agregar"
                           className="add"
                           onClick={() => {
@@ -154,7 +170,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn.icon-icons.com/icons2/931/PNG/512/edit_modify_icon-icons.com_72390.png"
                           alt="imagen"
                           className="download"
                         />
@@ -163,7 +178,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
                           alt="imagen"
                           className="add"
                           onClick={() => {
@@ -175,7 +189,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
                         />
@@ -243,7 +256,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/117/117885.png"
                           alt="agregar"
                           className="add"
                           onClick={() => {
@@ -255,7 +267,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn.icon-icons.com/icons2/931/PNG/512/edit_modify_icon-icons.com_72390.png"
                           alt="imagen"
                           className="download"
                           onClick={() => {
@@ -267,7 +278,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
                           alt="imagen"
                           className="add"
                         />
@@ -276,7 +286,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
                         />
@@ -344,11 +353,10 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/117/117885.png"
                           alt="agregar"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./agregarRepNivelPiso";
+                            window.location.href = "./agregarReporteInspeccionPiso";
                           }}
                         />
                       </Grid>
@@ -356,11 +364,18 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn.icon-icons.com/icons2/931/PNG/512/edit_modify_icon-icons.com_72390.png"
                           alt="imagen"
                           className="download"
+                        />
+                      </Grid>
+                      <Grid item xs={6} lg={3}>
+                        <Image
+                          width={100}
+                          height={100}
+                          alt="imagen"
+                          className="add"
                           onClick={() => {
-                            window.location.href = "./editarLicenciaSanitaria";
+                            window.location.href = "./editarReporteInspeccionPiso";
                           }}
                         />
                       </Grid>
@@ -368,16 +383,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
-                          alt="imagen"
-                          className="add"
-                        />
-                      </Grid>
-                      <Grid item xs={6} lg={3}>
-                        <Image
-                          width={100}
-                          height={100}
-                          src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
                         />
@@ -409,7 +414,7 @@ export default function Reportes() {
                           textAlign: "center",
                         }}
                       >
-                        Reporte De Revision de Trampas de Luz
+                        Reporte De Inspeccion a Nivel Equipo
                       </h1>
                     </div>
                   </Grid>
@@ -430,6 +435,7 @@ export default function Reportes() {
                             "fecha",
                             value !== null ? value : values.fecha
                           );
+                          // aca haremos los cambios de renderizacion de cards por region
                         }}
                         sx={{ width: "100%" }}
                         renderInput={(params) => (
@@ -444,11 +450,10 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/117/117885.png"
                           alt="agregar"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./agregarRepTrampasDeLuz";
+                            window.location.href = "./agregarReporteInspeccionEquipo";
                           }}
                         />
                       </Grid>
@@ -456,99 +461,18 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn.icon-icons.com/icons2/931/PNG/512/edit_modify_icon-icons.com_72390.png"
-                          alt="imagen"
-                          className="download"
-                          onClick={() => {
-                            window.location.href = "./editarLicenciaSanitaria";
-                          }}
-                        />
-                      </Grid>
-                      <Grid item xs={6} lg={3}>
-                        <Image
-                          width={100}
-                          height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
-                          alt="imagen"
-                          className="add"
-                        />
-                      </Grid>
-                      <Grid item xs={6} lg={3}>
-                        <Image
-                          width={100}
-                          height={100}
-                          src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
                         />
                       </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              style={{
-                marginBottom: "20px",
-              }}
-            >
-              <div className="cardReporte">
-                <Grid container spacing={2} direction={"row"}>
-                  <Grid item xs={6} lg={4}>
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "50%",
-                      }}
-                    >
-                      <h1
-                        style={{
-                          fontSize: "20px",
-                          textAlign: "center",
-                        }}
-                      >
-                        Orden De Servicio Sencilla
-                      </h1>
-                    </div>
-                  </Grid>
-                  <Grid item xs={6} lg={4}>
-                    <Box sx={{ width: "100%" }}>
-                      <Autocomplete
-                        disablePortal
-                        id="fecha"
-                        options={fecha}
-                        getOptionLabel={(option) =>
-                          typeof option === "string" || option instanceof String
-                            ? option
-                            : ""
-                        }
-                        onChange={(e, value) => {
-                          console.log(value);
-                          setFechaValue(
-                            "fecha",
-                            value !== null ? value : values.fecha
-                          );
-                        }}
-                        sx={{ width: "100%" }}
-                        renderInput={(params) => (
-                          <TextField {...params} label="Fecha" />
-                        )}
-                      ></Autocomplete>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} lg={4}>
-                    <Grid container spacing={0} direction={"row"}>
                       <Grid item xs={6} lg={3}>
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/117/117885.png"
-                          alt="agregar"
+                          alt="imagen"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./agregarOrdenSencilla";
+                            window.location.href = "./editarReporteInspeccionEquipo";
                           }}
                         />
                       </Grid>
@@ -556,28 +480,6 @@ export default function Reportes() {
                         <Image
                           width={100}
                           height={100}
-                          src="https://cdn.icon-icons.com/icons2/931/PNG/512/edit_modify_icon-icons.com_72390.png"
-                          alt="imagen"
-                          className="download"
-                          onClick={() => {
-                            window.location.href = "./editarLicenciaSanitaria";
-                          }}
-                        />
-                      </Grid>
-                      <Grid item xs={6} lg={3}>
-                        <Image
-                          width={100}
-                          height={100}
-                          src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
-                          alt="imagen"
-                          className="add"
-                        />
-                      </Grid>
-                      <Grid item xs={6} lg={3}>
-                        <Image
-                          width={100}
-                          height={100}
-                          src="https://static.vecteezy.com/system/resources/previews/000/574/204/original/vector-sign-of-download-icon.jpg"
                           alt="imagen"
                           className="download"
                         />

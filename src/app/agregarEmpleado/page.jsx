@@ -30,12 +30,13 @@ export default function AgregarEmpleado() {
       const contraseña = document.getElementById("contraseña").value;
 
       // Enviar datos al backend
-      await axios.post("http://127.0.0.1:8000/usuarios/", {
+      await axios.post("http://127.0.0.1:8000/api/register", {
         nombre_empleado: nombre,
         correo,
         contraseña,
         rol: selectedRole,
       });
+      
 
       // Si la solicitud se completa correctamente, puedes redirigir o mostrar un mensaje de éxito
       alert("Empleado agregado correctamente");

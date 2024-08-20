@@ -6,7 +6,7 @@ import { TextField, Button, Grid, styled, Stack } from "@mui/material";
 import { Formik } from "formik";
 
 export default function Login() {
-  const baseUrl = "http://127.0.0.1:8000/api/login";
+  const baseUrl = "http://localhost:8000/api/login";
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -22,12 +22,12 @@ export default function Login() {
   const loginUser = async (values) => {
     try {
       const response = await axios.post(baseUrl, {
-        correo: values.user,
+        correo: values.user,        // Asegúrate de que estos nombres coincidan con los esperados por el backend
         contraseña: values.password,
       });
-
+  
       const { token } = response.data;
-
+  
       if (token) {
         localStorage.setItem("token", token);
         router.push("/"); // Redirigir al Home después del inicio de sesión
@@ -39,6 +39,7 @@ export default function Login() {
       setError("Error en la solicitud de inicio de sesión");
     }
   };
+  
 
   return (
     <Formik

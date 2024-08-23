@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import axios from 'axios';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export default function Cardclient({ cliente }) {
   const handleCardClick = async () => {
@@ -26,8 +27,9 @@ export default function Cardclient({ cliente }) {
 
   const handleUpdate = (event) => {
     event.stopPropagation(); // Prevenir la redirección al hacer clic en el botón de editar
-    window.location.href = `./editarCliente?id=${cliente.id}&nombre_cliente=${encodeURIComponent(cliente.nombre_cliente)}&nombre_sucursal=${encodeURIComponent(cliente.nombre_sucursal)}&direccion=${encodeURIComponent(cliente.direccion)}`;
+    window.location.href = `./editarCliente?id=${cliente.id}&nombre_cliente=${encodeURIComponent(cliente.nombre_cliente)}&nombre_sucursal=${encodeURIComponent(cliente.nombre_sucursal)}&direccion=${encodeURIComponent(cliente.direccion)}&email=${encodeURIComponent(cliente.email)}`;
   };
+  
 
   const handleDelete = (event) => {
     event.stopPropagation(); // Prevenir la redirección al hacer clic en el botón de eliminar

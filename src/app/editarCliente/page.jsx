@@ -1,5 +1,7 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation"; // Importar el hook adecuado para parámetros de consulta
 import {
   Grid,
   TextField,
@@ -10,14 +12,21 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
-  Autocomplete,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputLabel from "@mui/material/InputLabel";
-import axios from "axios"; 
+import axios from "axios";
+import Autocomplete from '@mui/material/Autocomplete';
 
-export default function EditarCliente({ clienteId }) {
+export default function EditarCliente() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
+  const nombre_cliente = searchParams.get('nombre_cliente');
+  const nombre_sucursal = searchParams.get('nombre_sucursal');
+  const direccion = searchParams.get('direccion');
+  const email = searchParams.get('email');
+
   const ColorButton = styled(Button)(({ theme }) => ({
     color: "black",
     backgroundColor: "#10754a",
@@ -35,42 +44,48 @@ export default function EditarCliente({ clienteId }) {
   const [regionValue, setRegionValue] = useState([]);
   const [giroDeEmpresaValue, setGiroDeEmpresaValue] = useState([]);
 
+  useEffect(() => {
+    if (nombre_cliente) setName(nombre_cliente);
+    if (nombre_sucursal) setNameSucursal(nombre_sucursal);
+    if (direccion) setDireccionSucursal(direccion);
+    if (email) setMail(email);
+  }, [nombre_cliente, nombre_sucursal, direccion, email]);
+
   const handleGiroDeEmpresa = (event, value) => {
-    if (value) {
-      setGiroDeEmpresaValue(value);
-    } else {
-      setGiroDeEmpresaValue("");
-    }
+    setGiroDeEmpresaValue(value || []);
   };
 
   const handleRegionValue = (event, value) => {
-    if (value) {
-      setRegionValue(value);
-    } else {
-      setRegionValue("");
-    }
+    setRegionValue(value || []);
   };
 
-
-
-  //Aquin esta la aprte para poder actualizar los clientes 
-  //por eso no jalaba esa mamada 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/editar-cliente/${clienteId}`, {
+      const response = await axios.put(`http://localhost:8000/api/clientes/${id}`, {
         nombre_cliente: name,
         nombre_sucursal: nameSucursal,
-        // Añade aquí todas las propiedades que quieras actualizar
+        region: regionValue,
+        giro_empresa: giroDeEmpresaValue,
+        correo_cliente: mail,
+        contraseña: password,
+        // Incluye solo los campos que deseas actualizar
       });
       
       console.log(response.data);
       alert("Cliente Actualizado");
-      // Redirige a la página de clientes después de actualizar el cliente
-      window.location.href = "http://localhost:3000/clientes";
+      window.location.href = "http://localhost:8000/clientes";
     } catch (error) {
-      console.error("Error al actualizar cliente:", error);
+      console.error("Error al actualizar cliente:", error.response?.data || error.message);
+      // Mostrar el error en la interfaz de usuario para depuración
+      alert(`Error al actualizar cliente: ${error.response?.data.detail || error.message}`);
     }
   };
+  
+  
+  
+  
+  
 
   const region = ["Todas", "Tuxtla", "Comitan", "Comalapa"];
   const giroDeEmpresa = ["Cadena", "Farmacias", "Carnicerias", "Gobierno"];
@@ -196,7 +211,7 @@ export default function EditarCliente({ clienteId }) {
             <Box>
               <Stack spacing={2} direction="row">
                 <ColorButton type="submit" variant="contained" fullWidth>
-                  AGREGAR
+                  ACTUALIZAR
                 </ColorButton>
               </Stack>
             </Box>

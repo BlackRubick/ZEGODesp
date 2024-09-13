@@ -112,7 +112,7 @@ export default function AgregarRepTrampasDeLuz() {
   const handlePdf = async (event) => {
     try {
       const url =
-        "https://res.cloudinary.com/dpz2wx43s/image/upload/v1719597285/newCesar/rhqjzryzojxxrm8qki5k.pdf";
+        "https://res.cloudinary.com/dclm8x0pj/image/upload/v1726269196/ReporteRevisionTrampasDeLuz_zt6yhj.pdf";
       const existingPdfBytes = await fetch(url).then((res) =>
         res.arrayBuffer()
       );

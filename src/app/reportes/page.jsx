@@ -34,10 +34,12 @@ export default function Reportes() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:8000/api/empresaSeleccionada");
+        const response = await axios.get(
+          "http://localhost:8000/api/empresaSeleccionada"
+        );
         const data = response.data;
-        setEmpresa(data.nombre_cliente);  
-        setDireccion(data.direccion); 
+        setEmpresa(data.nombre_cliente);
+        setDireccion(data.direccion);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -86,7 +88,7 @@ export default function Reportes() {
                   margin: "0px",
                 }}
               >
-                {empresa || "Nombre Empresa"}  
+                {empresa || "Nombre Empresa"}
               </h1>
             </Grid>
             <Grid item display={"flex"} justifyContent={"center"} xs={12}>
@@ -97,7 +99,7 @@ export default function Reportes() {
                   marginBottom: "15px",
                 }}
               >
-                {direccion || "Dirección Empresa"}  
+                {direccion || "Dirección Empresa"}
               </h2>
             </Grid>
 
@@ -356,7 +358,8 @@ export default function Reportes() {
                           alt="agregar"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./agregarReporteInspeccionPiso";
+                            window.location.href =
+                              "./agregarReporteInspeccionPiso";
                           }}
                         />
                       </Grid>
@@ -375,7 +378,8 @@ export default function Reportes() {
                           alt="imagen"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./editarReporteInspeccionPiso";
+                            window.location.href =
+                              "./editarReporteInspeccionPiso";
                           }}
                         />
                       </Grid>
@@ -453,7 +457,8 @@ export default function Reportes() {
                           alt="agregar"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./agregarReporteInspeccionEquipo";
+                            window.location.href =
+                              "./agregarReporteInspeccionEquipo";
                           }}
                         />
                       </Grid>
@@ -472,7 +477,8 @@ export default function Reportes() {
                           alt="imagen"
                           className="add"
                           onClick={() => {
-                            window.location.href = "./editarReporteInspeccionEquipo";
+                            window.location.href =
+                              "./editarReporteInspeccionEquipo";
                           }}
                         />
                       </Grid>
@@ -485,6 +491,57 @@ export default function Reportes() {
                         />
                       </Grid>
                     </Grid>
+                  </Grid>
+                </Grid>
+              </div>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              style={{
+                marginBottom: "20px",
+              }}
+            >
+              <div className="cardReporte">
+                <Grid container spacing={2} direction={"row"}>
+                  <Grid item xs={12} lg={4}>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "50%",
+                      }}
+                    >
+                      <h1
+                        style={{
+                          fontSize: "20px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Registro De quimicos
+                      </h1>
+                    </div>
+                  </Grid>
+
+                  <Grid item xs={12} lg={8}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        alt="imagen"
+                        className="download"
+                        onClick={() => {
+                          window.open(
+                            "https://res.cloudinary.com/dclm8x0pj/image/upload/v1726269722/Registro_Quimicos_-_Hoja_1_rpjpdu.pdf",
+                            "_blank"
+                          );
+                        }}
+                        style={{ cursor: "pointer" }} // Añadir un estilo opcional para indicar que es clickeable
+                      />
+                    </div>
                   </Grid>
                 </Grid>
               </div>
